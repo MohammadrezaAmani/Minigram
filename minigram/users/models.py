@@ -17,11 +17,13 @@ class User(AbstractUser):
     first_name = None  # type: ignore
     last_name = None  # type: ignore
     bio = models.TextField(blank=True)
-    profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
-    followers = models.ManyToManyField("self", symmetrical=False, related_name="following")
+    pronouns = models.CharField(max_length=100, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    followers = models.ManyToManyField('self', symmetrical=False, related_name='following')
     date_of_birth = models.DateField(null=True, blank=True)
     website = models.URLField(max_length=200, blank=True)
-
+    is_private = models.BooleanField(default=False)
+    
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
 
